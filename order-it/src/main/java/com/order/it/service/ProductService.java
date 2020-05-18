@@ -34,11 +34,23 @@ public class ProductService {
 	public List<Products> getAllProducts() {
 		return (List<Products>) pr.findAll();
 	}
-	
-	public Cart save(Cart cart) {
-		
-		cart.setAmount(cart.getAmount()*cart.getQty());
-		return cr.save(cart);
+
+	public String save(Cart cart) {
+		Products productInfo = pr.findById(cart.getId().getProdID()).get();
+		Cart existingCartInfo = cr.findById(cart.getId()).orElse(null);
+		if (existingCartInfo == null) {
+			cart.setAmount(productInfo.getPricePerUnit() * cart.getQty());
+		} else if (existingCartInfo.getQty() >= productInfo.getMaxQtyLimit())
+			return "Already max amount in cart. can't add more";
+
+		else if (cart.getQty() + existingCartInfo.getQty() > productInfo.getMaxQtyLimit())
+			return "total quantity exceeds max limit";
+		else {
+			cart.setAmount(productInfo.getPricePerUnit() * cart.getQty() + existingCartInfo.getAmount());
+			cart.setQty(existingCartInfo.getQty() + cart.getQty());
+		}
+		cr.save(cart);
+		return "Added to cart";
 	}
 
 	public boolean removeFromCart(Cart cart) {

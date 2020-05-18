@@ -49,10 +49,9 @@ public class ProductController {
 	public ResponseEntity<String> addToCart(CartDTO cartDto) {
 		
 		Cart cart = mp.map(cartDto, Cart.class);
-		// mobileNo is not getting mapped - To do
-		cart.getId().setMobileNo(cartDto.getMobileNo());
-		ps.save(cart);
-		return new ResponseEntity<String>("Added to cart", HttpStatus.CREATED);
+		cart.getId().setMobileNo(getMobileNo());
+		String cartStatus = ps.save(cart);
+		return new ResponseEntity<String>(cartStatus, HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/removeFromCart")
