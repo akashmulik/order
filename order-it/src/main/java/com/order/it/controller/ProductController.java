@@ -49,6 +49,7 @@ public class ProductController {
 	public ResponseEntity<String> addToCart(CartDTO cartDto) {
 		
 		Cart cart = mp.map(cartDto, Cart.class);
+		// mobileNo is not getting mapped - To do
 		cart.getId().setMobileNo(getMobileNo());
 		String cartStatus = ps.save(cart);
 		return new ResponseEntity<String>(cartStatus, HttpStatus.CREATED);
@@ -106,5 +107,10 @@ public class ProductController {
 		stock.setUnitId(1);
 		sr.save(stock);
 		return "Inserted";
+	}
+	
+	@GetMapping("/getMyCartItems")
+	public List<Cart> getCart() {
+		return ps.getAllCartItems(getMobileNo());
 	}
 }

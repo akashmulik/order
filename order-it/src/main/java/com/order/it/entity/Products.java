@@ -41,6 +41,8 @@ public class Products {
 	private MeasuringUnit unit;
 	
 	private String quantity;
+	@Column(name="max_qty_limit")
+	private String maxQtyLimit;
 	
 	public int getProductId() {
 		return productId;
@@ -96,6 +98,14 @@ public class Products {
 
 	public void setQuantity(String quantity) {
 		this.quantity = quantity;
+	}
+
+	public String getMaxQtyLimit() {
+		return maxQtyLimit;
+	}
+
+	public void setMaxQtyLimit(String maxQtyLimit) {
+		this.maxQtyLimit = maxQtyLimit;
 	}
 	
 }

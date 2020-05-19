@@ -25,4 +25,9 @@ public class ViewController {
 	public String loginPage() {
 		return "login";
 	}
+	
+	@GetMapping("/page/cartPage")
+	public String cartPage() {
+		return "cart";
+	}
 }

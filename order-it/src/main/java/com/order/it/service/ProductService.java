@@ -83,4 +83,9 @@ public class ProductService {
 		
 	}
 
+	public List<Cart> getAllCartItems(String mobileNo) {
+		// TODO Auto-generated method stub
+		return cr.findByIdMobileNo(mobileNo);
+	}
+
 }

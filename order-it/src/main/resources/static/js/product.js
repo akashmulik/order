@@ -1,10 +1,11 @@
+var header;
 $(function() {
     //console.log( "ready!" );
 	
 	// AJAX
 	// Assign handlers immediately after making the request,
 	// and remember the jqXHR object for this request
-	var header = {'Content-Type' : 'application/json',
+	header = {'Content-Type' : 'application/json',
 			'Authorization' : 'Bearer '+Cookies.get('food-jwt-token')};
 	
 	var jqxhr = $.ajax({
@@ -53,29 +54,30 @@ $(function() {
 						})
 				)
 				.append(
-						$('<a/>', {
-							'class':'btn btn-primary btn-sm',
-							'href':'#',
+						$('<button/>', {
+							'class':'btn btn-primary btn-sm add-to-cart',
 							'text':"Add To Cart",
-							'onclick': 'addToCart('+ data[i].productId +')'
+							'onclick': 'addToCart(this,'+ data[i].productId +','+ data[i].maxQtyLimit +')' //'+ data[i].productId +'
 						})
 				)
 				.append(
 						$('<p/>', {
-							'class':'card-text float-right',
-							'text': '2 in cart'
+							'hidden': '',
+							'class': 'card-text float-right items-in-cart',
+							'style':'color: red;',
+							'text': '0 in cart'
 						})
 				)
 				.append(
-						$('<span/>', {
-							'text': data[i].productId,
+						$('<input/>', {
+							'value': data[i].productId,
 							'hidden': 'hidden'
 						})
 				)
 		);
 		$('.product-container').append($product);
 		}
-		
+		getMyCartItems();
 	}).fail(function(response) {
 		// case of token expired
 		if(response.status == 403 || response.status == 401) {
@@ -83,8 +85,36 @@ $(function() {
 		}
 	}).always(function() {});
 	
+	
+	function navigateTo(url) {
+		
+	}
 });
 
-function addToCart(productId) {
+function getMyCartItems() {
+		$.ajax({
+			url : '/getMyCartItems',
+			headers: header
+		})
+		.done(function(data) {
+			for(i=0;i<data.length;i++) {
+				var str = "input[value="+ data[i].id.prodID +"]";
+				$("body").find("div.card").find(str).siblings('p.items-in-cart'). removeAttr('hidden');
+				$("body").find("div.card").find(str).siblings('p.items-in-cart').text(data[i].qty+' in cart');
+			}
+		}).fail(function(data) {
+			//alert(data);
+		}).always(function() {
+		//	alert("complete");
+		});
+}
+
+function addToCart(val, pid, max) {
 	
+	var n = $(val).siblings('p.items-in-cart').text().substr(0,2);
+	var total = parseInt(n)+1;
+	if(total > max)
+		return;
+	$(val).siblings('p.items-in-cart').text(total+' in cart');
+	$(val).siblings('p.items-in-cart').removeAttr('hidden');
 }

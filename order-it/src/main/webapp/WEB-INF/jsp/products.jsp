@@ -19,10 +19,10 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="localhost:8080/allProducts">All Products <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="productsPage">All Products <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Cart</a>
+        <a class="nav-link" href="cartPage">Cart</a>
       </li>
 <!--      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -43,7 +43,7 @@
 </nav>
 </head>
 
-<body>
+<body style="overflow: scroll !important;">
 <div class="container">
 <h3>Products</h3>
 <div class='product-container'>

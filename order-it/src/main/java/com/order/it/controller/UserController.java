@@ -48,12 +48,13 @@ public class UserController {
 			return new ReturnCode(1008, "Entered OTP is incorrect/expired", null);
 		}
 		try {
+			user.setPassword("secret");
 			User savedUser = us.save(user);
-			savedUser.setPassword("secret");
+		//	savedUser.setPassword("secret");
 			// on successful signup, generate and return token and redirect user to products page
-			ResponseEntity<?> res = generateJWT(savedUser);
-			logger.info(res.getBody());
-			String [] data = new String[] {(String) res.getBody()}; //token
+			String token = getTokenAfterSignupSuccess(savedUser);
+			logger.info(token);
+			String [] data = new String[] {token}; //token
 			return new ReturnCode(1007, "user created.", data);
 		} catch (Exception e) {
 			return new ReturnCode(1008, "System error. Please try again in some time", null);
@@ -114,6 +115,11 @@ public class UserController {
 		return "Hello World";
 	}
 
+	private String getTokenAfterSignupSuccess(User user) {
+		final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getMobileNo());
+		final String token = jwtUtil.generateToken(userDetails);
+		return token;
+	}
 }
 
 

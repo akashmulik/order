@@ -1,5 +1,7 @@
 package com.order.it.dto;
 
+import com.order.it.entity.Products;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +12,7 @@ public class CartDTO {
 	private int prodID;
 	private int qty;
 	private double amount;
+	private Products product;
 	
 	public String getMobileNo() {
 		return mobileNo;
@@ -34,6 +37,12 @@ public class CartDTO {
 	}
 	public void setAmount(double amount) {
 		this.amount = amount;
+	}
+	public Products getProduct() {
+		return product;
+	}
+	public void setProduct(Products product) {
+		this.product = product;
 	}
 	
 	

@@ -31,7 +31,8 @@ public class CustomUserDetailService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
 		Optional<User> OptionalUser = userRepo.findById(username);
-		User user = OptionalUser.get();
+		User user = OptionalUser.orElseThrow(() -> 
+				new UsernameNotFoundException("User not found in table: User"));
 		if (null == user) {
 			throw new UsernameNotFoundException("no user present");
 		}
