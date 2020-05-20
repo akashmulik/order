@@ -54,9 +54,14 @@ public class ProductService {
 	}
 
 	public boolean removeFromCart(Cart cart) {
-		
-		Cart cartRow = cr.findById(cart.getId()).get();
-		cr.delete(cartRow);
+
+		Cart cartRow = cr.findById(cart.getId()).orElse(null);
+		if (cartRow == null || (cartRow.getQty() - 1) <= 0) {
+			cr.delete(cartRow);
+			return true;
+		}
+		cartRow.setQty(cartRow.getQty() - 1);
+		cr.save(cartRow);
 		return true;
 	}
 

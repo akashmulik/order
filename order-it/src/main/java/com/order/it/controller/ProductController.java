@@ -60,10 +60,11 @@ public class ProductController {
 		
 		Cart cart = mp.map(cartDto, Cart.class);
 		// mobileNo is not getting mapped - To do
-		cart.getId().setMobileNo(cartDto.getMobileNo());
+		//cart.getId().setMobileNo(cartDto.getMobileNo());
+		cart.getId().setMobileNo(getMobileNo());
 		boolean isDeleted = ps.removeFromCart(cart);
-		
-		if(isDeleted)
+
+		if (isDeleted)
 			return new ResponseEntity<String>("Deleted", HttpStatus.OK);
 		return new ResponseEntity<String>("Failed", HttpStatus.OK);
 	}
