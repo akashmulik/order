@@ -32,17 +32,17 @@ public class Products {
 	
 	int available;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "stock_id")
+	@OneToOne
+    @JoinColumn(name = "stock_id", insertable=false, updatable=false)
 	private Stock stock;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "unit")
+	@OneToOne
+    @JoinColumn(name = "unit", insertable=false, updatable=false)
 	private MeasuringUnit unit;
 	
 	private String quantity;
 	@Column(name="max_qty_limit")
-	private String maxQtyLimit;
+	private int maxQtyLimit;
 	
 	public int getProductId() {
 		return productId;
@@ -100,11 +100,11 @@ public class Products {
 		this.quantity = quantity;
 	}
 
-	public String getMaxQtyLimit() {
+	public int getMaxQtyLimit() {
 		return maxQtyLimit;
 	}
 
-	public void setMaxQtyLimit(String maxQtyLimit) {
+	public void setMaxQtyLimit(int maxQtyLimit) {
 		this.maxQtyLimit = maxQtyLimit;
 	}
 	

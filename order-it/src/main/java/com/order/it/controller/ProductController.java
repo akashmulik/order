@@ -48,6 +48,8 @@ public class ProductController {
 	@PostMapping("/addToCart")
 	public ResponseEntity<String> addToCart(CartDTO cartDto) {
 		
+		if(cartDto == null)
+			return new ResponseEntity<String>("no data in request", HttpStatus.CREATED);
 		Cart cart = mp.map(cartDto, Cart.class);
 		// mobileNo is not getting mapped - To do
 		cart.getId().setMobileNo(getMobileNo());
@@ -65,7 +67,7 @@ public class ProductController {
 		boolean isDeleted = ps.removeFromCart(cart);
 
 		if (isDeleted)
-			return new ResponseEntity<String>("Deleted", HttpStatus.OK);
+			return new ResponseEntity<String>("Removed 1 item", HttpStatus.OK);
 		return new ResponseEntity<String>("Failed", HttpStatus.OK);
 	}
 	

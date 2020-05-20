@@ -11,6 +11,7 @@
 <!-- // bootstrap -->
  <script src="${pageContext.request.contextPath}/js/signup.js"></script>
   <script src="${pageContext.request.contextPath}/js/cookies.js"></script>
+  <script src="${pageContext.request.contextPath}/js/jquery.bootstrap-growl.js"></script>
 
 </head>
 <body>

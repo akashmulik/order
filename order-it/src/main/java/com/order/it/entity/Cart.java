@@ -15,11 +15,10 @@ public class Cart {
 	
 	@EmbeddedId
 	private CartPK id;
-	private int productId;
 	private int qty;
 	private double amount;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
     @JoinColumn(name = "prod_id", insertable=false, updatable=false)
 	private Products product;
 	
@@ -50,11 +49,5 @@ public class Cart {
 	public void setProduct(Products product) {
 		this.product = product;
 	}
-	public int getProductId() {
-		return productId;
-	}
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}	
 	
 }

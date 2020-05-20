@@ -1,12 +1,23 @@
 var header;
+
+var $loading = $('#loadingDiv').hide();
+$(document)
+  .ajaxStart(function () {
+    $loading.show();
+  })
+  .ajaxStop(function () {
+    $loading.hide();
+  });
+
 $(function() {
     //console.log( "ready!" );
 	
 	// AJAX
 	// Assign handlers immediately after making the request,
 	// and remember the jqXHR object for this request
-	header = {'Content-Type' : 'application/json',
-			'Authorization' : 'Bearer '+Cookies.get('food-jwt-token')};
+	header = {'Authorization' : 'Bearer '+Cookies.get('food-jwt-token')};
+	/*{'Content-Type' : 'application/json',
+			'Authorization' : 'Bearer '+Cookies.get('food-jwt-token')};*/
 	
 	var jqxhr = $.ajax({
 		url: '/allProducts',
@@ -16,7 +27,7 @@ $(function() {
 		for(i=0; i<data.length;i++) {
 		// prepare card to display for every product
 		var $product = $('<div/>',{
-		    'class':'card mb-3'
+		    'class':'card mb-3 shadow'
 		})
 		.append(
 				$('<img/>', {
@@ -32,7 +43,7 @@ $(function() {
 				.append(
 						$('<h5>', {
 							'class':'card-title float-right',
-							'text':data[i].pricePerUnit
+							'text': 'Rs.'+data[i].pricePerUnit
 						})
 				)
 				.append(
@@ -44,7 +55,7 @@ $(function() {
 				.append(
 						$('<h5>', {
 							'class':'card-title float-right',
-							'text':data[i].quantity
+							'text':data[i].quantity+""+data[i].unit.unitName
 						})
 				)
 				.append(
@@ -55,7 +66,7 @@ $(function() {
 				)
 				.append(
 						$('<button/>', {
-							'class':'btn btn-primary btn-sm add-to-cart',
+							'class':'btn btn-primary btn-sm add-to-cart shadow',
 							'text':"Add To Cart",
 							'onclick': 'addToCart(this,'+ data[i].productId +','+ data[i].maxQtyLimit +')' //'+ data[i].productId +'
 						})
@@ -103,10 +114,15 @@ function getMyCartItems() {
 				$("body").find("div.card").find(str).siblings('p.items-in-cart').text(data[i].qty+' in cart');
 			}
 		}).fail(function(data) {
-			//alert(data);
+			alert(data);
 		}).always(function() {
 		//	alert("complete");
 		});
+}
+
+//alert function
+function showAlert(msg, msgType) {
+	$.bootstrapGrowl(msg, { type: msgType, delay: 1500});
 }
 
 function addToCart(val, pid, max) {
@@ -115,6 +131,28 @@ function addToCart(val, pid, max) {
 	var total = parseInt(n)+1;
 	if(total > max)
 		return;
-	$(val).siblings('p.items-in-cart').text(total+' in cart');
-	$(val).siblings('p.items-in-cart').removeAttr('hidden');
+	
+	//adding to cart
+	var fdata = new FormData();
+	fdata.append("prodID", pid);
+	fdata.append("qty", 1);
+	
+	$.ajax({
+		url : '/addToCart',
+		type: "POST",
+        enctype: 'multipart/form-data',
+        data: fdata,
+        processData: false,
+        contentType: false,
+        cache: false,
+        headers: header
+	})
+	.done(function(data) {
+			showAlert(data, 'success');
+			$(val).siblings('p.items-in-cart').text(total+' in cart');
+			$(val).siblings('p.items-in-cart').removeAttr('hidden');
+	}).fail(function(data) {
+		alert("Temporary issue. Please try in some time.");
+	}).always(function() {
+	});
 }

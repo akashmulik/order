@@ -10,10 +10,9 @@ $( document ).ready(function() {
 				method: 'POST'
 			})
 			.done(function(data) {
-				console.log(data);
-				alert(data.msg);
+			//	console.log(data);
+				showAlert(data.msg, 'success');
 				if(data.retCode === 1007) {
-					console.log(data.data[0]);
 					Cookies.set('food-jwt-token', data.data[0]);
 					window.location.href = "/page/productsPage";
 				} else {
@@ -42,9 +41,8 @@ $( document ).ready(function() {
 				data: $('#signup').serialize(),
 				method: 'POST'
 			})
-			.done(function(data) {
-				
-				alert(data.msg);
+			.done(function(data) {				
+				showAlert(data.msg, 'success');
 				if(data.retCode === 1007) {
 					$("#getOtpBtnOnSignupPage").attr('hidden','');
 					$("input[type='tel']").parent().removeAttr('hidden');
@@ -75,8 +73,7 @@ $( document ).ready(function() {
 				method: 'POST'
 			})
 			.done(function(data) {
-				
-				alert(data.msg);
+				showAlert(data.msg, 'success');
 				if(data.retCode === 1007) {
 					$("#getOtpBtnOnLoginPage").attr('hidden','');
 					$("button[type='submit']").removeAttr('hidden');
@@ -85,7 +82,7 @@ $( document ).ready(function() {
 					// failed
 				}
 			}).fail(function(data) {
-				alert("Fail");
+				showAlert('Failed', 'danger');
 			}).always(function(data) {
 			});
 		});
@@ -113,3 +110,8 @@ $( document ).ready(function() {
 			
 		}
 });
+
+//alert function
+function showAlert(msg, msgType) {
+	$.bootstrapGrowl(msg, { type: msgType, delay: 3000});
+}

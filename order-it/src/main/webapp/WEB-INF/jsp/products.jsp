@@ -1,18 +1,20 @@
 <html>
 <head>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- bootstrap -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/js/bootstrap/bootstrap.css" type="text/css" />
- <link rel="stylesheet" href="#" type="text/css" />
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/css/common.css" type="text/css" />
 <script src="${pageContext.request.contextPath}/js/bootstrap/jquery-3.1.1.js"></script>
  <script src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.bundle.js"></script>
 <!-- // bootstrap -->
- <script src="${pageContext.request.contextPath}/js/product.js"></script>
  <script src="${pageContext.request.contextPath}/js/cookies.js"></script>
+ <script src="${pageContext.request.contextPath}/js/jquery.bootstrap-growl.js"></script>
+ <script src="${pageContext.request.contextPath}/js/product.js"></script>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">Logistics</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler shadow" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
