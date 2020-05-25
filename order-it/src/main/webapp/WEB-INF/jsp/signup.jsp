@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="container">
-<div class="mx-auto mt-5"">
+<div class="mx-auto mt-5">
 			<h4 class="text-center">SIGNUP</h4>
 
 	<form action="signup" method="post" id="signup">
@@ -28,23 +28,25 @@
 <!-- 			<div class="form-group col-lg-6">
 				<label for="lastName">Last Name</label>
 				<input type="text" name="lastName" class="form-control" id="lastName" placeholder="Last Name" required>
-			</div> -->
+			</div>
 			<div class="form-group col-lg-6">
 				<label for="address">Address</label>
 				<textarea class="form-control" name="address" rows="3" required></textarea>
-			</div>
+			</div>  -->
 			<div class="form-group col-lg-6">
 				<label for="mobileNo">Mobile No</label>
 				<input type="tel" class="form-control" name="mobileNo" id="mobileNo" pattern="[789][0-9]{9}" placeholder="Mobile No" required>
 			</div>
-			<a class="btn btn-primary" id="getOtpBtnOnSignupPage" href="#">Get Otp</a>
-			<div class="form-group col-lg-6" hidden>
+			<a class="btn btn-primary btn-block" id="getOtpBtnOnSignupPage" href="#">Get Otp</a>
+			<div class="form-group col-lg-6">
 				<label for="otp">Otp</label>
-				<input type="tel" class="form-control" name="otp" pattern="[0-9]{4}" placeholder="OTP">
+				<input type="tel" class="form-control otp" name="otp" pattern="[0-9]{4}" placeholder="OTP">
 			</div>
+			<button type="submit" class="btn btn-success btn-block">SIGNUP</button>
 		</div>
-		<button type="submit" class="btn btn-primary" hidden>Sign in</button>
 	</form>
+	<p class="text-center">
+				<a class="badge badge-success" href="/page/loginPage">LOGIN</a>  Designed By Akash M</p>
 	</div>
 </div>
 </body>

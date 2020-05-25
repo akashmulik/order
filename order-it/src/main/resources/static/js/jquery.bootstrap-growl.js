@@ -75,3 +75,22 @@
   };
 
 }).call(this);
+
+/*
+ * https://www.jqueryscript.net/other/Animated-Notification-Plugin-For-jQuery-Bootstrap-Bootstrap-Growl.html
+ * $.bootstrapGrowl("Your Messages", // Messages
+{ // options
+type: "info", // info, success, warning and danger
+ele: "body", // parent container
+offset: {
+from: "top",
+amount: 20
+},
+align: "right", // right, left or center
+width: 250,
+delay: 4000,
+allow_dismiss: true, // add a close button to the message
+stackup_spacing: 10
+});
+
+*/

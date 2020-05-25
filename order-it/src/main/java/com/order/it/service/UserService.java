@@ -28,5 +28,23 @@ public class UserService {
 		
 		return userRepository.findById(mobileNo);
 	}
+
+	public String getCustAddress(String mobileNo) {
+		// TODO Auto-generated method stub
+		User u = userRepository.findById(mobileNo).orElse(null);
+		if(u!=null)
+			return u.getAddress();
+		return null;
+	}
+
+	public String updateAddrs(User u) {
+		// TODO Auto-generated method stub
+		try {
+			int retVal = userRepository.updateAddrs(u.getAddress(), u.getMobileNo());
+			return "Address updated";
+		} catch (Exception e) {
+			return "Error occured";
+		}
+	}
 	
 }

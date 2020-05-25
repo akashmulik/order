@@ -1,4 +1,11 @@
 $( document ).ready(function() {
+	
+	$("input.otp").parent().hide();
+	$("button[type='submit']").hide();
+	
+	//remove jwt token from cookies on load of login/signup page
+	Cookies.remove('food-jwt-token');
+	
 		$("#signup").submit(function(e) {
 
 		    e.preventDefault();
@@ -11,7 +18,7 @@ $( document ).ready(function() {
 			})
 			.done(function(data) {
 			//	console.log(data);
-				showAlert(data.msg, 'success');
+				showAlert(data.msg, 'danger');
 				if(data.retCode === 1007) {
 					Cookies.set('food-jwt-token', data.data[0]);
 					window.location.href = "/page/productsPage";
@@ -29,7 +36,7 @@ $( document ).ready(function() {
 			
 			var isValid = /[789][0-9]{9}/.test($('input[name="mobileNo"]').val());
 			if(!isValid) {
-				alert("Enter correct 10 digits mobile No");
+				showAlert("Enter correct 10 digits mobile No", "danger");
 				return false;
 			}
 			if (confirm("Is mobile number is correct format ?")) {
@@ -44,9 +51,9 @@ $( document ).ready(function() {
 			.done(function(data) {				
 				showAlert(data.msg, 'success');
 				if(data.retCode === 1007) {
-					$("#getOtpBtnOnSignupPage").attr('hidden','');
-					$("input[type='tel']").parent().removeAttr('hidden');
-					$("button[type='submit']").removeAttr('hidden');
+					$("#getOtpBtnOnSignupPage").hide();
+					$("input.otp").parent().show(400);
+					$("button[type='submit']").show(400);
 				} else {
 					// failed
 				}
@@ -60,7 +67,7 @@ $( document ).ready(function() {
 			
 			var isValid = /[789][0-9]{9}/.test($('input[name="mobileNo"]').val());
 			if(!isValid) {
-				alert("Enter correct 10 digits mobile No");
+				showAlert("Enter correct 10 digits mobile No", "danger");
 				return false;
 			}
 			if (confirm("Is mobile number is correct format ?")) {
@@ -73,11 +80,13 @@ $( document ).ready(function() {
 				method: 'POST'
 			})
 			.done(function(data) {
-				showAlert(data.msg, 'success');
+				if(data.retCode === 1008)
+					showAlert(data.msg, 'danger');
 				if(data.retCode === 1007) {
-					$("#getOtpBtnOnLoginPage").attr('hidden','');
-					$("button[type='submit']").removeAttr('hidden');
-					$("input[type='tel']").parent().removeAttr('hidden');
+					showAlert(data.msg, 'success');
+					$("#getOtpBtnOnLoginPage").hide();
+					$("input.otp").parent().show(400);
+					$("button[type='submit']").show(400);
 				} else {
 					// failed
 				}
@@ -97,10 +106,10 @@ $( document ).ready(function() {
 				method: 'POST'
 			})
 			.done(function(data) {
-					Cookies.set('food-jwt-token', data);
-					window.location.href = "/page/productsPage";
-			}).fail(function(data) {
-				alert("Failed");
+				Cookies.set('food-jwt-token', data);
+				window.location.href = "/page/productsPage";
+			}).fail(function(jqXHR, textStatus, errorThrown) {
+				showAlert(jqXHR.responseText, 'danger');
 			}).always(function() {
 			//	alert("complete");
 			});

@@ -3,7 +3,6 @@ package com.order.it.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -18,7 +17,7 @@ public class Stock {
 	private int stockId;
 	
 	@Column(name="total_qty")
-	private int totalQty;
+	private float totalQty;
 	
 	@Column(name="unit_id")
 	private int unitId;
@@ -41,10 +40,10 @@ public class Stock {
 	public void setStockId(int stockId) {
 		this.stockId = stockId;
 	}
-	public int getTotalQty() {
+	public float getTotalQty() {
 		return totalQty;
 	}
-	public void setTotalQty(int totalQty) {
+	public void setTotalQty(float totalQty) {
 		this.totalQty = totalQty;
 	}
 	public int getUnitId() {

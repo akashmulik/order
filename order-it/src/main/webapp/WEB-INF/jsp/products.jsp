@@ -12,8 +12,8 @@
  <script src="${pageContext.request.contextPath}/js/jquery.bootstrap-growl.js"></script>
  <script src="${pageContext.request.contextPath}/js/product.js"></script>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Logistics</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+  <a class="navbar-brand" href="productsPage">Logistics</a>
   <button class="navbar-toggler shadow" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -23,8 +23,14 @@
       <li class="nav-item active">
         <a class="nav-link" href="productsPage">All Products <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="cartPage">Cart</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="liveOrdersPage">My Order</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="loginPage">Logout</a>
       </li>
 <!--      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -36,10 +42,10 @@
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
-      </li> -->
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+      </li> -->
     </ul>
   </div>
 </nav>
@@ -47,7 +53,7 @@
 
 <body style="overflow: scroll !important;">
 <div class="container">
-<h3>Products</h3>
+<h5>Products</h5>
 <div class='product-container'>
 <!--
 <div class="card mb-3">

@@ -35,4 +35,10 @@ public class ReturnCode {
 	}
 	// codes: 1007 success
 	// 1008 fail
+	public ReturnCode(int retCode, String msg) {
+		// TODO Auto-generated constructor stub
+		super();
+		this.retCode = retCode;
+		this.msg = msg;
+	}
 }

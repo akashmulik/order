@@ -10,7 +10,7 @@
 <script
 	src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.bundle.js"></script>
 <!-- // bootstrap -->
-<script src="${pageContext.request.contextPath}/js/cart.js"></script>
+<script src="${pageContext.request.contextPath}/js/myorders.js"></script>
 <script src="${pageContext.request.contextPath}/js/cookies.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.bootstrap-growl.js"></script>
 
@@ -55,32 +55,22 @@
 
 <body style="overflow: scroll !important;">
 	<div class="container">
-		<h5>Cart</h5>
-		<table class="table table-sm table-striped table-bordered" id="cartTable">
+	<div class="row">
+		<h5 class="col-4">Live Order</h5>
+		<a class="col-6" href="#">Completed orders</a>
+	</div>
+		<table class="table table-sm table-striped table-bordered" id="orderTable">
 			<thead>
 				<tr>
 					<th>Name</th>
 					<th>Qty</th>
-					<th>Rate</th>
-					<th>Total</th>
-					<th></th>
+					<th>Rate(Rs)</th>
+					<th>Total(Rs)</th>
 				</tr>
 			</thead>
 			<tbody>
 			</tbody>
 		</table>
-		<!-- <ul class="pager">
-  			<li class="previous"><a href="#">Previous</a></li>
-  			<li class="next"><a href="#">Next</a></li>
-		</ul> -->
-		<div class="btn-group">
-			<div class="btn-group mr-2" role="group" aria-label="First group">
-  				<a href="productsPage" class="btn btn-primary">Products</a>
-  			</div>
-  			<div class="btn-group mr-2" role="group" aria-label="First group">
-  				<a class="btn btn-primary" href="/page/orderSummaryPage">Next</a>
-  			</div>
-		</div>
 	</div>
 </body>
 </html>

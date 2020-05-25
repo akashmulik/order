@@ -40,7 +40,7 @@ public class Products {
     @JoinColumn(name = "unit", insertable=false, updatable=false)
 	private MeasuringUnit unit;
 	
-	private String quantity;
+	private int quantity;
 	@Column(name="max_qty_limit")
 	private int maxQtyLimit;
 	
@@ -92,11 +92,11 @@ public class Products {
 		this.unit = unit;
 	}
 
-	public String getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(String quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 
@@ -107,5 +107,6 @@ public class Products {
 	public void setMaxQtyLimit(int maxQtyLimit) {
 		this.maxQtyLimit = maxQtyLimit;
 	}
+
 	
 }

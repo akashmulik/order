@@ -44,6 +44,10 @@ public class CartDTO {
 	public void setProduct(Products product) {
 		this.product = product;
 	}
+	@Override
+	public String toString() {
+		return "CartDTO [prodID=" + prodID + ", qty=" + qty + "]";
+	}
 	
 	
 }

@@ -23,7 +23,7 @@ import com.order.it.conf.JwtTokenUtil;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-	Logger logger = LogManager.getLogger(JwtRequestFilter.class);
+	private static final Logger LOGGER = LogManager.getLogger(JwtRequestFilter.class);
 	@Autowired
 	private JwtTokenUtil jwtUtil;
 	@Autowired
@@ -38,13 +38,25 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		
 		if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
 			token = authorizationHeader.substring(7);
+			try {
 			userName = jwtUtil.getUsernameFromToken(token);
+			}
+			catch(Exception e) {
+				LOGGER.error(e.getClass()+"::"+e.getMessage());
+			}
 		}
 		
 		if(userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			UserDetails ud = userDetailsService.loadUserByUsername(userName);
 			
-			if(jwtUtil.validateToken(token, ud)) {
+			boolean isTokenValid = false;
+			try {
+				isTokenValid = jwtUtil.validateToken(token, ud);
+				}
+				catch(Exception e) {
+					LOGGER.error(e.getClass()+"::"+e.getMessage());
+				}
+			if(isTokenValid) {
 				
 				// usernamePasswordAuthenticationToken -the token that spring sec uses internally. we are just allowing default
 				// flow of spring sec if token is valid

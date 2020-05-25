@@ -10,8 +10,6 @@ $(document)
   });
 
 $(function() {
-    //console.log( "ready!" );
-	
 	// AJAX
 	// Assign handlers immediately after making the request,
 	// and remember the jqXHR object for this request
@@ -96,10 +94,6 @@ $(function() {
 		}
 	}).always(function() {});
 	
-	
-	function navigateTo(url) {
-		
-	}
 });
 
 function getMyCartItems() {

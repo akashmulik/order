@@ -10,7 +10,7 @@
 <script
 	src="${pageContext.request.contextPath}/js/bootstrap/bootstrap.bundle.js"></script>
 <!-- // bootstrap -->
-<script src="${pageContext.request.contextPath}/js/cart.js"></script>
+<script src="${pageContext.request.contextPath}/js/orderSummary.js"></script>
 <script src="${pageContext.request.contextPath}/js/cookies.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.bootstrap-growl.js"></script>
 
@@ -55,31 +55,45 @@
 
 <body style="overflow: scroll !important;">
 	<div class="container">
-		<h5>Cart</h5>
-		<table class="table table-sm table-striped table-bordered" id="cartTable">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Qty</th>
-					<th>Rate</th>
-					<th>Total</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
-		<!-- <ul class="pager">
-  			<li class="previous"><a href="#">Previous</a></li>
-  			<li class="next"><a href="#">Next</a></li>
-		</ul> -->
-		<div class="btn-group">
-			<div class="btn-group mr-2" role="group" aria-label="First group">
-  				<a href="productsPage" class="btn btn-primary">Products</a>
-  			</div>
-  			<div class="btn-group mr-2" role="group" aria-label="First group">
-  				<a class="btn btn-primary" href="/page/orderSummaryPage">Next</a>
-  			</div>
+
+		<div class="container">
+		<br>
+		<div class="card-columns">
+<!-- 		address -->
+			<div class="card">
+				<div class="card-header"><h5 class="card-title">Address</h5></div>
+				<div class="card-body">
+					
+					<textarea class="form-control" id="addrs" rows="4" readonly></textarea><br>
+					<a href="#" id="editAddrs" class="btn btn-primary btn-sm">Edit</a>
+					<a href="#" onclick="confirmAddrs()" class="btn btn-success btn-sm">Confirm</a>
+				</div>
+			</div>
+<!-- 		payment -->
+			<div class="card payment-card hidden">
+				<div class="card-header"><h5 class="card-title">Payment Method</h5></div>
+				<div class="card-body">
+					<div class="custom-control custom-radio">
+						<input type="radio" id="cod" name="payMode"
+							class="custom-control-input" value="cod"> <label
+							class="custom-control-label" for="cod">Cash On Delivery</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" id="debit" name="payMode"
+							class="custom-control-input" value="debitc"> <label
+							class="custom-control-label" for="debit">Debit Card</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" id="upi" name="payMode"
+							class="custom-control-input" value="upi"> <label
+							class="custom-control-label" for="upi">UPI</label>
+					</div>
+				</div>
+				</div>
+				<div class="text-center">
+				<button class="btn btn-success hidden" hidden onclick="placeOrder()">Place Order</button>
+				</div>
+		</div>
 		</div>
 	</div>
 </body>

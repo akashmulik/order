@@ -30,4 +30,12 @@ public class ViewController {
 	public String cartPage() {
 		return "cart";
 	}
+	@GetMapping("/page/orderSummaryPage")
+	public String orderSummaryPage() {
+		return "orderSummary";
+	}
+	@GetMapping("/page/liveOrdersPage")
+	public String liveOrdersPage() {
+		return "myorders";
+	}
 }

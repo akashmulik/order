@@ -2,41 +2,43 @@ var header;
 
 $(function() {
 	header = {'Authorization' : 'Bearer '+Cookies.get('food-jwt-token')};
-	loadCart();
+	loadMyOrders();
 });
 
-function loadCart() {
+function loadMyOrders() {
 	$.ajax({
-		url : '/getMyCartItems',
+		url : '/getLiveOrders',
 		headers: header
 	})
 	.done(function(data) {
-		$("#cartTable tbody tr").remove();
-		var cartTotalAmnt = 0;
+		$("#orderTable tbody tr").remove();
+		var orderTotalAmnt = 0.0;
 		for(i=0;i<data.length;i++) {
-			var totalAmnt = data[i].product.pricePerUnit * data[i].qty;
-			cartTotalAmnt = cartTotalAmnt+totalAmnt;
+			orderTotalAmnt = orderTotalAmnt + data[i].amount;
 			var row = "<tr>"+
 				"<td>"+ data[i].product.stock.name +"</td> "+
 				"<td>"+ data[i].product.quantity+""+data[i].product.unit.unitName+"x"+data[i].qty+"</td> "+
-				"<td>"+ data[i].product.pricePerUnit +"</td> "+
-				"<td>"+ totalAmnt +"</td> "+
-				"<td><span class='badge badge-pill badge-danger' onclick='removeFromCart("+data[i].product.productId+")'>X</span></td> "+
+				"<td>"+ data[i].pricePerUnit +"</td> "+
+				"<td>"+ data[i].amount +"</td> "+
 				"</tr>";
-			$("#cartTable").append(row);
+			$("#orderTable").append(row);
 		}
 		var summaryRow = "<tr>"+
 		"<td><strong>Total :</strong></td> "+
 		"<td></td> "+
-		"<td></td> "+
-		"<td><strong>"+ cartTotalAmnt +"</strong></td> "+
 		"<td><strong>Rs.</strong></td> "+
+		"<td><strong>"+ orderTotalAmnt +"</strong></td> "+
 		"</tr>";
-	$("#cartTable").append(summaryRow);
-	}).fail(function(data) {
+	$("#orderTable").append(summaryRow);
+	
+	var dateRow = "<tr>"+
+	"<td colspan='2'><strong>Ordered on :</strong></td> "+
+	"<td colspan='2'><strong>"+ data[0].orderPlacedOn +"</strong></td> "+
+	"</tr>";
+$("#orderTable").append(dateRow);
+	}).fail(function(response) {
 		alert(data);
-		alert("Temporary issue. Please try in some time.");
-		if(data.status == 403 || data.status == 401) {
+		if(response.status == 403 || response.status == 401) {
 			window.location.href = "/page/loginPage";
 		}
 	}).always(function() {

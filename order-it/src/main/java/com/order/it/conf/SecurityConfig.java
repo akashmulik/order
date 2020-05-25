@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.cors().disable()
 		.authorizeRequests()
 		.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-		.antMatchers("/authenticate", "/createUser", "/page/*","/generateOtp","/generateOtpForLogin", "/addImage").permitAll()
+		.antMatchers("/authenticate", "/createUser", "/page/*", "/generateOtp","/generateOtpForLogin", "/addImage").permitAll()
 		.anyRequest().authenticated()
 		.and()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
