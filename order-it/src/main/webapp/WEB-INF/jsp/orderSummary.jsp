@@ -91,7 +91,7 @@
 				</div>
 				</div>
 				<div class="text-center">
-				<button class="btn btn-success hidden" hidden onclick="placeOrder()">Place Order</button>
+				<button class="btn btn-success hidden" onclick="placeOrder()">Place Order</button>
 				</div>
 		</div>
 		</div>

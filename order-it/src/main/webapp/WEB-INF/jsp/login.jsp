@@ -28,7 +28,7 @@
 				<button type="submit" class="btn btn-primary btn-block">LOGIN</button>
 			</form>
 			<p class="text-center">
-				<a class="badge badge-success" href="/page/signupPage">SIGNUP</a>  Designed By Akash M</p>
+				<a class="badge badge-success" href="/page/signupPage">SIGNUP</a>&nbsp;&nbsp;&nbsp;<small><span  class="text-muted">Crafted By </span><code>Kalyani M</code></small></p>
 		</div>
 	</div>
 

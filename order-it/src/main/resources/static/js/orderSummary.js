@@ -23,7 +23,7 @@ function confirmAddrs() {
 	var enteredAddrs = $("textarea#addrs").val();
 	if(enteredAddrs == address) {
 		$("textarea#addrs").attr('readonly','true');
-		showAlert('Address not changed', 'danger');
+		showAlert('Address not modified', 'danger');
 		return;
 	}
 	if(enteredAddrs.length < 40) {
@@ -84,8 +84,9 @@ function placeOrder() {
 		})
 		.done(function(data) {
 			getAlertTypeByResponseCode(data.retCode);
-			
 			showAlert(data.msg, getAlertTypeByResponseCode(data.retCode));
+			if(data.retCode==1007)
+				setTimeout(redirectToOrderPage, 2000);
 		}).fail(function(data) {
 			alert("Temporary issue. Please try in some time.");
 		}).always(function() {
@@ -100,4 +101,8 @@ function getAlertTypeByResponseCode(retType) {
 		return 'success';
 	if(retType == 1008)
 		return 'danger';
+}
+
+var redirectToOrderPage = function() {
+	window.location.href = "/page/liveOrdersPage";
 }
