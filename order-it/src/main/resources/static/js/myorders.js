@@ -2,6 +2,7 @@ var header;
 
 $(function() {
 	header = {'Authorization' : 'Bearer '+Cookies.get('food-jwt-token')};
+//	$('div.container').hide();
 	loadMyOrders();
 });
 
@@ -35,7 +36,13 @@ function loadMyOrders() {
 	"<td colspan='2'><strong>Ordered on :</strong></td> "+
 	"<td colspan='2'><strong>"+ data[0].orderPlacedOn +"</strong></td> "+
 	"</tr>";
+	var statusRow = "<tr>"+
+	"<td colspan='2'><strong>Order status :</strong></td> "+
+	"<td colspan='2'><strong>"+ data[0].oStatus.desc +"</strong></td> "+
+	"</tr>";
 $("#orderTable").append(dateRow);
+$("#orderTable").append(statusRow);
+$('div.container').show(00);
 	}).fail(function(response) {
 		alert(data);
 		if(response.status == 403 || response.status == 401) {
@@ -73,4 +80,9 @@ function removeFromCart(pid) {
 		alert("Temporary issue. Please try in some time.");
 	}).always(function() {
 	});
+}
+
+function logout() {
+	Cookies.remove('food-jwt-token');
+	window.location.href = "/page/loginPage";
 }

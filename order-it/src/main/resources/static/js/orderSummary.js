@@ -13,21 +13,22 @@ $(function() {
 
 
 //alert function
-function showAlert(msg, msgType) {
-	$.bootstrapGrowl(msg, { type: msgType, delay: 2000});
+function showAlert(msg, msgType, delayTime) {
+	$.bootstrapGrowl(msg, { type: msgType, delay: delayTime});
 }
 
 function confirmAddrs() {
-	$(".hidden").show(400);
 	// if user changed addrs, save it else do nothing
 	var enteredAddrs = $("textarea#addrs").val();
 	if(enteredAddrs == address) {
 		$("textarea#addrs").attr('readonly','true');
-		showAlert('Address not modified', 'danger');
+		showAlert('Address not modified','success',2000);
+		$(".hidden").show(400);
+		$('#editAddrs').hide();
 		return;
 	}
 	if(enteredAddrs.length < 40) {
-		showAlert('Please enter detailed address', 'danger');
+		showAlert('Please enter detailed address','danger',2000);
 		return;
 	}
 	
@@ -45,8 +46,10 @@ function confirmAddrs() {
         headers: header
 	})
 	.done(function(data) {
-		showAlert(data, 'success');
+		showAlert(data, 'success', 2000);
 		$("textarea#addrs").attr('readonly','true');
+		$(".hidden").show(400);
+		$('#editAddrs').hide();
 		address = enteredAddrs;
 	}).fail(function(response) {
 		alert("Temporary issue. Please try in some time.");
@@ -74,7 +77,7 @@ function getCustAddress() {
 function placeOrder() {
 	var payMode = $("input[name='payMode']:checked");
 	if(payMode.val() == null) {
-		showAlert('Please select Payment mode', 'danger');
+		showAlert('Please select Payment mode', 'danger', 2000);
 		return;
 	}
 	if (confirm("Are you sure, place order with pay mode: "+ payMode.next('label').text() +" ?")) {
@@ -84,7 +87,7 @@ function placeOrder() {
 		})
 		.done(function(data) {
 			getAlertTypeByResponseCode(data.retCode);
-			showAlert(data.msg, getAlertTypeByResponseCode(data.retCode));
+			showAlert(data.msg, getAlertTypeByResponseCode(data.retCode), -1); //-1 means do not auto hide alert msg
 			if(data.retCode==1007)
 				setTimeout(redirectToOrderPage, 2000);
 		}).fail(function(data) {
@@ -105,4 +108,9 @@ function getAlertTypeByResponseCode(retType) {
 
 var redirectToOrderPage = function() {
 	window.location.href = "/page/liveOrdersPage";
+}
+
+function logout() {
+	Cookies.remove('food-jwt-token');
+	window.location.href = "/page/loginPage";
 }

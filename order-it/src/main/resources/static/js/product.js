@@ -1,21 +1,23 @@
 var header;
 
-var $loading = $('#loadingDiv').hide();
+/*var $loading = $('#loadingDiv').hide();
 $(document)
   .ajaxStart(function () {
+	$('div.container').hide();
     $loading.show();
   })
   .ajaxStop(function () {
+	$('div.container').show();
     $loading.hide();
-  });
+  });*/
 
 $(function() {
+
 	// AJAX
 	// Assign handlers immediately after making the request,
 	// and remember the jqXHR object for this request
 	header = {'Authorization' : 'Bearer '+Cookies.get('food-jwt-token')};
-	/*{'Content-Type' : 'application/json',
-			'Authorization' : 'Bearer '+Cookies.get('food-jwt-token')};*/
+	$('div.container').hide();
 	
 	var jqxhr = $.ajax({
 		url: '/allProducts',
@@ -86,6 +88,7 @@ $(function() {
 		);
 		$('.product-container').append($product);
 		}
+		$('div.container').show(400);
 		getMyCartItems();
 	}).fail(function(response) {
 		// case of token expired
@@ -123,9 +126,10 @@ function addToCart(val, pid, max) {
 	
 	var n = $(val).siblings('p.items-in-cart').text().substr(0,2);
 	var total = parseInt(n)+1;
-	if(total > max)
+	if(total > max) {
+		showAlert('Max items allowed in cart: '+n, 'danger');
 		return;
-	
+	}
 	//adding to cart
 	var fdata = new FormData();
 	fdata.append("prodID", pid);
@@ -149,4 +153,9 @@ function addToCart(val, pid, max) {
 		alert("Temporary issue. Please try in some time.");
 	}).always(function() {
 	});
+}
+
+function logout() {
+	Cookies.remove('food-jwt-token');
+	window.location.href = "/page/loginPage";
 }

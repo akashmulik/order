@@ -3,6 +3,9 @@ package com.order.it.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.annotation.security.RolesAllowed;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,6 +13,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,7 +46,6 @@ public class ProductController {
 	
 	@GetMapping("/allProducts")
 	public List<Products> getAllProducts() {
-		
 		return ps.getAllProducts();
 	}
 	
@@ -123,5 +127,10 @@ public class ProductController {
 	@GetMapping("/getLiveOrders")
 	public List<LiveOrder> getLiveOrders() {
 		return ps.getLiveOrders(getMobileNo());
+	}
+	@RolesAllowed("ROLE_SELLER")
+	@GetMapping("/seller/getPendingOrders")
+	public List<List<LiveOrder>> getPendingOrders() {
+		return ps.getPendingOrders();
 	}
 }

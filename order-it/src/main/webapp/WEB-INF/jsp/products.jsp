@@ -30,7 +30,7 @@
         <a class="nav-link" href="liveOrdersPage">My Order</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="loginPage">Logout</a>
+        <a class="nav-link" href="#" onclick="logout()">Logout</a>
       </li>
 <!--      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -52,37 +52,14 @@
 </head>
 
 <body style="overflow: scroll !important;">
+<!-- <h1 >Loading ...</h1> -->
+<div id="loadingDiv" class="spinner-border text-success" role="status"></div>
 <div class="container">
 <h5>Products</h5>
 <div class='product-container'>
-<!--
-<div class="card mb-3">
-  <img src="${pageContext.request.contextPath}/images/download.jpg" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Product Name 1</h5>
-    <p class="card-text">Product Description</p>
-    <a href="#" class="btn btn-primary">Add To Cart</a>
-  </div>
+
 </div>
- 
-<div class="card mb-3">
-  <img src="images/download.jpg" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Product Name 2</h5>
-    <p class="card-text">Product Description</p>
-    <a href="#" class="btn btn-primary">Add To Cart</a>
-  </div>
 </div>
 
-<div class="card mb-3">
-  <img src="images/download.jpg" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Product Name 3</h5>
-    <p class="card-text">Product Description</p>
-    <a href="#" class="btn btn-primary">Add To Cart</a>
-  </div>
-</div> -->
-</div>
-</div>
 </body>
 </html>

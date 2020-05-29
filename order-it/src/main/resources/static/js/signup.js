@@ -2,9 +2,22 @@ $( document ).ready(function() {
 	
 	$("input.otp").parent().hide();
 	$("button[type='submit']").hide();
+	$('div.container').hide();
+	$('div.container').show(400);
 	
-	//remove jwt token from cookies on load of login/signup page
-	Cookies.remove('food-jwt-token');
+	//on load of login and signup page, verify token in cookies and if its valid,
+	//then redirect to home page for that user
+	$.ajax({
+		url : '/isTokenValid',
+		headers: {'Authorization' : 'Bearer '+Cookies.get('food-jwt-token')}
+	})
+	.done(function(data) {
+			window.location.href = "/page/loginSuccess";
+	}).fail(function(data) {
+		//alert(data);
+	}).always(function() {
+	//	alert("complete");
+	});
 	
 		$("#signup").submit(function(e) {
 
@@ -21,7 +34,7 @@ $( document ).ready(function() {
 				showAlert(data.msg, 'danger');
 				if(data.retCode === 1007) {
 					Cookies.set('food-jwt-token', data.data[0]);
-					window.location.href = "/page/productsPage";
+					window.location.href = "/page/loginSuccess";
 				} else {
 					// failed
 				}
@@ -107,17 +120,14 @@ $( document ).ready(function() {
 			})
 			.done(function(data) {
 				Cookies.set('food-jwt-token', data);
-				window.location.href = "/page/productsPage";
+				window.location.href = "/page/loginSuccess";
 			}).fail(function(jqXHR, textStatus, errorThrown) {
 				showAlert(jqXHR.responseText, 'danger');
 			}).always(function() {
 			//	alert("complete");
 			});
 		});
-		
-		function validateMobNo(mob) {
-			
-		}
+
 });
 
 //alert function

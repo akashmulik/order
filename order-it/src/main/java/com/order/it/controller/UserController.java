@@ -133,4 +133,21 @@ public class UserController {
 	private String getMobileNo() {
 		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
+	
+	@GetMapping("/page/getRoles")
+	public String getRoles() {
+		if(hasRole("ROLE_SELLER")) //if seller then redirect to pending orders page
+			return "/page/pendingOrdersPage";
+		return "/page/productsPage"; //else products page
+	}
+	
+	private static boolean hasRole(String roleName) {
+		return SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
+				.anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals(roleName));
+	}
+
+	@GetMapping("/isTokenValid")
+	public boolean isTokenValid() { //if request reaches here means token is valid. no other logic here
+		return true;
+	}
 }

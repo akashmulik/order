@@ -57,7 +57,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 					LOGGER.error(e.getClass()+"::"+e.getMessage());
 				}
 			if(isTokenValid) {
-				
 				// usernamePasswordAuthenticationToken -the token that spring sec uses internally. we are just allowing default
 				// flow of spring sec if token is valid
 				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = 

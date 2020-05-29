@@ -46,7 +46,7 @@
 		</div>
 	</form>
 	<p class="text-center">
-				<a class="badge badge-success" href="/page/loginPage">LOGIN</a>&nbsp;&nbsp;&nbsp;<small><span  class="text-muted">Crafted By </span><code>Kalyani M</code></small></p>
+				<a class="badge badge-success" href="/page/loginPage">LOGIN</a>&nbsp;&nbsp;&nbsp;<small><span  class="text-muted">Crafted By </span><code>Akash M</code></small></p>
 	</div>
 </div>
 </body>

@@ -1,7 +1,13 @@
 package com.order.it.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -90,6 +96,11 @@ public class ProductService {
 		if(cartItems == null || cartItems.size()==0)
 			return new ReturnCode(1008, "ahmm..cart is empty");
 		
+		// if customer already has live order, no more order allowed
+		List<LiveOrder> liveOrder = lor.findByIdMobileNo(mobileNo);
+		if(liveOrder!=null && liveOrder.size()>0)
+			return new ReturnCode(1008, "Sorry! Your previous orderd is not completed yet.");
+			
 		// need to update stock quantities
 		List<Stock> updatedStocks;
 		try {
@@ -99,15 +110,17 @@ public class ProductService {
 		}
 		
 		List<LiveOrder> loItems = new ArrayList<>();
+		int oId = lor.getMaxOrderId() + 1; // max oid in table + 1. remember that we allow only one request execute this
+											// order at a tiem hence wont be data conflict/curruption
 		for (Cart cartItem : cartItems) {
 			LiveOrder lo = modelMapper.map(cartItem, LiveOrder.class);
 			//set date time
 			lo.setOrderPlacedOn(gu.getCurrentDateString());
 			lo.setPricePerUnit(cartItem.getProduct().getPricePerUnit());
 			lo.setAmount(cartItem.getQty()*cartItem.getProduct().getPricePerUnit());
+			lo.setOrderId(oId);
 			loItems.add(lo);
 		}
-		
 		// save to live_orders and delete them from cart
 		Iterable<LiveOrder> placedOrder = lor.saveAll(loItems);
 		// delete from cart if saved to live_order table
@@ -134,6 +147,30 @@ public class ProductService {
 	public List<LiveOrder> getLiveOrders(String mobileNo) {
 		// TODO Auto-generated method stub
 		return lor.findByIdMobileNo(mobileNo);
+	}
+
+	// this method is for seller
+	public List<List<LiveOrder>> getPendingOrders() {
+		// TODO Auto-generated method stub
+		List<LiveOrder> orders = lor.findAllByOrderByOrderIdAsc(); //all placed orders
+		// map order id to all items in that particular order
+		List<List<LiveOrder>> ordMap = new ArrayList<List<LiveOrder>>();
+		
+		List<LiveOrder> aOrder = new ArrayList<>(); //temp variables
+		int oid = 0;
+		
+		for(int i=0; i<orders.size(); i++) {
+			if(oid==0 || orders.get(i).getOrderId()==oid) {
+				aOrder.add(orders.get(i));
+				oid = orders.get(i).getOrderId();
+			}
+			if((i+1)==orders.size() || orders.get(i+1).getOrderId()!=oid) {
+				ordMap.add(aOrder);
+				aOrder = new ArrayList<>();
+				oid=0;
+			}
+		}
+		return ordMap;
 	}
 
 }

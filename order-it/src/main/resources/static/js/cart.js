@@ -2,6 +2,7 @@ var header;
 
 $(function() {
 	header = {'Authorization' : 'Bearer '+Cookies.get('food-jwt-token')};
+	$('div.container').hide();
 	loadCart();
 });
 
@@ -33,6 +34,7 @@ function loadCart() {
 		"<td><strong>Rs.</strong></td> "+
 		"</tr>";
 	$("#cartTable").append(summaryRow);
+	$('div.container').show(400);
 	}).fail(function(data) {
 		alert(data);
 		alert("Temporary issue. Please try in some time.");
@@ -71,4 +73,9 @@ function removeFromCart(pid) {
 		alert("Temporary issue. Please try in some time.");
 	}).always(function() {
 	});
+}
+
+function logout() {
+	Cookies.remove('food-jwt-token');
+	window.location.href = "/page/loginPage";
 }

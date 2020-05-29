@@ -17,7 +17,6 @@ public class LiveOrder {
 	private CartPK id;
 	private int qty;
 	private double amount;
-	private String status;
 	@Column(name = "order_placed_on", columnDefinition = "TIMESTAMP")
 	private String orderPlacedOn;
 	@OneToOne
@@ -25,6 +24,11 @@ public class LiveOrder {
 	private Products product;
 	@Column(name="price_per_unit")
 	private double pricePerUnit;
+	@Column(name="order_id")
+	private int orderId;
+	@OneToOne
+	@JoinColumn(name = "status_id", insertable=false, updatable=false)
+	private OrderStatus oStatus;
 	
 	public CartPK getId() {
 		return id;
@@ -45,12 +49,6 @@ public class LiveOrder {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
 	public String getOrderPlacedOn() {
 		return orderPlacedOn;
 	}
@@ -69,6 +67,18 @@ public class LiveOrder {
 	public void setPricePerUnit(double pricePerUnit) {
 		this.pricePerUnit = pricePerUnit;
 	}
-	
+	public int getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
+	@Override
+	public String toString() {
+		return "LiveOrder [orderId=" + orderId + "]";
+	}
+	public OrderStatus getoStatus() {
+		return oStatus;
+	}
 	
 }
