@@ -38,7 +38,8 @@ function loadMyOrders() {
 		"<td><strong>"+ orderTotalAmnt +"</strong></td> "+
 		"</tr>";
 	$("#orderTable").append(summaryRow);
-	
+	console.log(data);
+	if(data.lenght === 0) {
 	var dateRow = "<tr>"+
 	"<td colspan='2'><strong>Ordered on :</strong></td> "+
 	"<td colspan='2'><strong>"+ data[0].orderPlacedOn +"</strong></td> "+
@@ -47,9 +48,10 @@ function loadMyOrders() {
 	"<td colspan='2'><strong>Order status :</strong></td> "+
 	"<td colspan='2'><strong>"+ data[0].oStatus.desc +"</strong></td> "+
 	"</tr>";
+	}
 $("#orderTable").append(dateRow);
 $("#orderTable").append(statusRow);
-$('div.container').show(00);
+$('div.container').show(400);
 	}).fail(function(response) {
 		alert(data);
 		if(response.status == 403 || response.status == 401) {
