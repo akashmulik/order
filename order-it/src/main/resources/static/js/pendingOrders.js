@@ -1,5 +1,12 @@
 var header;
 var statusOptions;
+$(document)
+.ajaxStart(function () {
+	 $("#overlay").fadeIn(200);
+})
+.ajaxStop(function () {
+	  $("#overlay").fadeOut(200);
+});
 
 $(function() {
 	header = {'Authorization' : 'Bearer '+Cookies.get('food-jwt-token')};

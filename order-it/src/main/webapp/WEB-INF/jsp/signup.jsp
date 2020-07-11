@@ -23,7 +23,7 @@
 		<div class="form-row">
 			<div class="form-group col-lg-6">
 				<label for="firstName">Name</label>
-				<input type="text" name="firstName" class="form-control input-lg" id="firstName" placeholder="Name" required>
+				<input type="text" name="firstName" class="form-control text-center form-control-sm" id="firstName" placeholder="Name" required>
 			</div>
 <!-- 			<div class="form-group col-lg-6">
 				<label for="lastName">Last Name</label>
@@ -35,14 +35,14 @@
 			</div>  -->
 			<div class="form-group col-lg-6">
 				<label for="mobileNo">Mobile No</label>
-				<input type="tel" class="form-control" name="mobileNo" id="mobileNo" pattern="[789][0-9]{9}" placeholder="Mobile No" required>
+				<input type="tel" class="form-control text-center form-control-sm" name="mobileNo" id="mobileNo" pattern="[789][0-9]{9}" placeholder="Mobile No" required>
 			</div>
-			<a class="btn btn-primary btn-block" id="getOtpBtnOnSignupPage" href="#">Get Otp</a>
+			<a class="btn btn-primary btn-block btn-sm" id="getOtpBtnOnSignupPage" href="#">Get Otp</a>
 			<div class="form-group col-lg-6">
 				<label for="otp">Otp</label>
-				<input type="tel" class="form-control otp" name="otp" pattern="[0-9]{4}" placeholder="OTP">
+				<input type="tel" class="form-control text-center otp form-control-sm" name="otp" pattern="[0-9]{4}" placeholder="OTP">
 			</div>
-			<button type="submit" class="btn btn-success btn-block">SIGNUP</button>
+			<button type="submit" class="btn btn-success btn-block btn-sm">SIGNUP</button>
 		</div>
 	</form>
 	<p class="text-center">

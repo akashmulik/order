@@ -31,12 +31,13 @@ $( document ).ready(function() {
 			})
 			.done(function(data) {
 			//	console.log(data);
-				showAlert(data.msg, 'danger');
 				if(data.retCode === 1007) {
+					showAlert(data.msg, 'success');
 					Cookies.set('food-jwt-token', data.data[0]);
 					window.location.href = "/page/loginSuccess";
 				} else {
 					// failed
+					showAlert(data.msg, 'danger');
 				}
 			}).fail(function(data) {
 				//alert(data);

@@ -1,15 +1,10 @@
 var header;
 
-//var $loading = $('#loadingDiv').hide();
 $(document)
   .ajaxStart(function () {
-	//$('div.container').hide();
-    //$loading.show();
 	 $("#overlay").fadeIn(200);
   })
   .ajaxStop(function () {
-	//$('div.container').show();
-    //$loading.hide();
 	  $("#overlay").fadeOut(200);
   });
 

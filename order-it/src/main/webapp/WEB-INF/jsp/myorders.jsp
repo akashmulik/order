@@ -54,6 +54,12 @@
 </head>
 
 <body style="overflow: scroll !important;">
+<!-- Loading spinner -->
+<div id="overlay">
+	<div class="cv-spinner">
+		<span class="spinner"></span>
+	</div>
+</div>
 	<div class="container">
 	<div class="row">
 		<h5 class="col-4">Live Order</h5>

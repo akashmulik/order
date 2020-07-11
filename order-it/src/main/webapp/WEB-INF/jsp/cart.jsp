@@ -54,6 +54,12 @@
 </head>
 
 <body style="overflow: scroll !important;">
+<!-- Loading spinner -->
+<div id="overlay">
+	<div class="cv-spinner">
+		<span class="spinner"></span>
+	</div>
+</div>
 	<div class="container">
 		<h5>Cart</h5>
 		<table class="table table-sm table-striped table-bordered" id="cartTable">
