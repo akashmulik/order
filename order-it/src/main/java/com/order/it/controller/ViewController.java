@@ -22,7 +22,7 @@ public class ViewController {
 		return "insertImage";
 	}
 	
-	@GetMapping("/page/loginPage")
+	@GetMapping(value = {"/page/loginPage", "/"})
 	public String loginPage() {
 		return "login";
 	}

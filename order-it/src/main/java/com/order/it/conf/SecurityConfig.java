@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.cors().disable()
 		.authorizeRequests()
 		.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-		.antMatchers("/authenticate", "/createUser", "/generateOtp","/generateOtpForLogin","/page/*", "/addImage").permitAll()
+		.antMatchers("/", "/authenticate", "/createUser", "/generateOtp","/generateOtpForLogin","/page/*", "/addImage").permitAll()
 		.antMatchers("/seller/*").hasRole("SELLER")
 		.anyRequest().authenticated()
 		.and()
