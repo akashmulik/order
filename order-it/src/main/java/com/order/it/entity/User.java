@@ -1,9 +1,10 @@
-package com.order.it.bean;
+package com.order.it.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Table(name="users")
 @Entity
@@ -13,15 +14,18 @@ public class User {
 	@Column(name="mobile_no")
 	private String mobileNo;
 	
+	private String password;
+	
 	@Column(name="first_name")
-	private String firststName;
+	private String firstName;
 	
 	@Column(name="last_name")
 	private String lastName;
 	
 	private String address;
-	
 	private String roles;
+	private boolean enabled = true;
+	@Transient private String otp;
 	
 	public String getMobileNo() {
 		return mobileNo;
@@ -29,11 +33,17 @@ public class User {
 	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
 	}
-	public String getFirststName() {
-		return firststName;
+	public String getPassword() {
+		return password;
 	}
-	public void setFirststName(String firststName) {
-		this.firststName = firststName;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 	public String getLastName() {
 		return lastName;
@@ -53,4 +63,17 @@ public class User {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	public boolean isEnabled() {
+		return enabled;
+	}
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+	public String getOtp() {
+		return otp;
+	}
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
+	
 }

@@ -5,12 +5,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.order.it.entity.User;
+import com.order.it.entity.Stock;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, String>{
+public interface StockRepo extends CrudRepository<Stock, Integer>{
 
-	@Modifying(clearAutomatically=true)
-	@Query("update User u set u.address = ?1 where u.mobileNo = ?2")
-	int updateAddrs(String address, String mobileNo);
+	@Modifying
+	@Query("update Stock s set s.totalQty = ?1 where s.stockId = ?2")
+	int updateStockQty(float qty, int id);
 }

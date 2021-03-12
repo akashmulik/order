@@ -1,4 +1,4 @@
-package com.order.it.bean;
+package com.order.it.entity;
 
 public class Roles {
 
