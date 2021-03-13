@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.order.it.dto.CartDTO;
 import com.order.it.entity.Cart;
 import com.order.it.entity.LiveOrder;
+import com.order.it.entity.Order;
 import com.order.it.entity.Products;
 import com.order.it.entity.Stock;
 import com.order.it.repository.StockRepo;
@@ -125,7 +126,7 @@ public class ProductController {
 		return ps.getAllCartItems(getMobileNo());
 	}
 	@GetMapping("/getLiveOrders")
-	public List<LiveOrder> getLiveOrders() {
+	public Order getLiveOrders() {
 		return ps.getLiveOrders(getMobileNo());
 	}
 	@RolesAllowed("ROLE_SELLER")
