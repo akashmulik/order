@@ -19,15 +19,18 @@ function loadMyOrders() {
 		headers: header
 	})
 	.done(function(data) {
+		
+		var item = data.liveOrder;
+		
 		$("#orderTable tbody tr").remove();
 		var orderTotalAmnt = 0.0;
-		for(i=0;i<data.length;i++) {
-			orderTotalAmnt = orderTotalAmnt + data[i].amount;
+		for(i=0;i<item.length;i++) {
+			orderTotalAmnt = orderTotalAmnt + item[i].amount;
 			var row = "<tr>"+
-				"<td>"+ data[i].product.stock.name +"</td> "+
-				"<td>"+ data[i].product.quantity+""+data[i].product.unit.unitName+"x"+data[i].qty+"</td> "+
-				"<td>"+ data[i].pricePerUnit +"</td> "+
-				"<td>"+ data[i].amount +"</td> "+
+				"<td>"+ item[i].product.stock.name +"</td> "+
+				"<td>"+ item[i].product.quantity+""+item[i].product.unit.unitName+"x"+item[i].qty+"</td> "+
+				"<td>"+ item[i].pricePerUnit +"</td> "+
+				"<td>"+ item[i].amount +"</td> "+
 				"</tr>";
 			$("#orderTable").append(row);
 		}
@@ -39,14 +42,14 @@ function loadMyOrders() {
 		"</tr>";
 	$("#orderTable").append(summaryRow);
 	console.log(data);
-	if(data.lenght === 0) {
+	if(item.lenght === 0) {
 	var dateRow = "<tr>"+
 	"<td colspan='2'><strong>Ordered on :</strong></td> "+
-	"<td colspan='2'><strong>"+ data[0].orderPlacedOn +"</strong></td> "+
+	"<td colspan='2'><strong>"+ data.orderDate +"</strong></td> "+
 	"</tr>";
 	var statusRow = "<tr>"+
 	"<td colspan='2'><strong>Order status :</strong></td> "+
-	"<td colspan='2'><strong>"+ data[0].oStatus.desc +"</strong></td> "+
+	"<td colspan='2'><strong>"+ data.orderStatus.desc +"</strong></td> "+
 	"</tr>";
 	}
 $("#orderTable").append(dateRow);
