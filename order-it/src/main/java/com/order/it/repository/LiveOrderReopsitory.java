@@ -12,5 +12,8 @@ public interface LiveOrderReopsitory extends CrudRepository<LiveOrder, CartPK> {
 
 	List<LiveOrder> findByIdMobileNo(String mobileNo);
 
+	@Query("SELECT coalesce(max(lo.orderId), 0) FROM LiveOrder lo")
+	int getMaxOrderId();
+	
 	List<LiveOrder> findAllByOrderByOrderIdAsc();
 }

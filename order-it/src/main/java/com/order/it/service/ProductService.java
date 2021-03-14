@@ -1,7 +1,13 @@
 package com.order.it.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,13 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.order.it.controller.ProductController;
 import com.order.it.entity.Cart;
 import com.order.it.entity.LiveOrder;
-import com.order.it.entity.Order;
 import com.order.it.entity.Products;
 import com.order.it.entity.Stock;
 import com.order.it.exception.OutOfStockException;
 import com.order.it.repository.CartRepository;
 import com.order.it.repository.LiveOrderReopsitory;
-import com.order.it.repository.OrderRepository;
 import com.order.it.repository.ProductRepository;
 import com.order.it.repository.StockRepo;
 import com.order.it.returncode.ReturnCode;
@@ -42,8 +46,6 @@ public class ProductService {
 	private GeneralUtilities gu;
 	@Autowired
 	private StockRepo sr;
-	@Autowired
-	private OrderRepository or;
 	
 	public List<Products> getAllProducts() {
 		return (List<Products>) pr.findAll();
@@ -94,12 +96,11 @@ public class ProductService {
 		if(cartItems == null || cartItems.size()==0)
 			return new ReturnCode(1008, "ahmm..cart is empty");
 		
-		//if customer already has uncompleted order, no more order allowed
-		Order order = or.findByMobileNo(mobileNo);
-		
-		if(order!=null && order.getOrderStatusId() < 5)
+		// if customer already has live order, no more order allowed
+		List<LiveOrder> liveOrder = lor.findByIdMobileNo(mobileNo);
+		if(liveOrder!=null && liveOrder.size()>0)
 			return new ReturnCode(1008, "Sorry! Your previous orderd is not completed yet.");
-		
+			
 		// need to update stock quantities
 		List<Stock> updatedStocks;
 		try {
@@ -109,20 +110,15 @@ public class ProductService {
 		}
 		
 		List<LiveOrder> loItems = new ArrayList<>();
-		//create row in order table
-		order = new Order();
-		order.setMobileNo(mobileNo);
-		order.setOrderDate(gu.getCurrentDateString());
-		order.setOrderStatusId(1); //by default 1 = order placed
-		//save order
-		order = or.save(order);
-		
+		int oId = lor.getMaxOrderId() + 1; // max oid in table + 1. remember that we allow only one request execute this
+											// order at a tiem hence wont be data conflict/curruption
 		for (Cart cartItem : cartItems) {
 			LiveOrder lo = modelMapper.map(cartItem, LiveOrder.class);
 			//set date time
+			lo.setOrderPlacedOn(gu.getCurrentDateString());
 			lo.setPricePerUnit(cartItem.getProduct().getPricePerUnit());
 			lo.setAmount(cartItem.getQty()*cartItem.getProduct().getPricePerUnit());
-			lo.setOrderId(order.getOrderId());
+			lo.setOrderId(oId);
 			loItems.add(lo);
 		}
 		// save to live_orders and delete them from cart
@@ -148,16 +144,16 @@ public class ProductService {
 		return cr.findByIdMobileNo(mobileNo);
 	}
 
-	public Order getLiveOrders(String mobileNo) {
+	public List<LiveOrder> getLiveOrders(String mobileNo) {
 		// TODO Auto-generated method stub
-		return or.findLiveOrder(mobileNo ,5);
+		return lor.findByIdMobileNo(mobileNo);
 	}
-	
+
 	// this method is for seller
 	public List<List<LiveOrder>> getPendingOrders() {
 		// TODO Auto-generated method stub
 		List<LiveOrder> orders = lor.findAllByOrderByOrderIdAsc(); //all placed orders
-		//Group by mobile number
+		// map order id to all items in that particular order
 		List<List<LiveOrder>> ordMap = new ArrayList<List<LiveOrder>>();
 		
 		List<LiveOrder> aOrder = new ArrayList<>(); //temp variables
