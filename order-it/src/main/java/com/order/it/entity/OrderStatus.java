@@ -1,15 +1,14 @@
 package com.order.it.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.springframework.data.annotation.Id;
 
 import lombok.Data;
 
 @Entity
-@Table(name="order_status_codes")
 @Data
+@Table(name = "order_status")
 public class OrderStatus {
 
 	@Id
